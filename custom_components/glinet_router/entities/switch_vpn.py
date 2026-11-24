@@ -9,14 +9,11 @@ from .switch_base import GLinetSwitchBase
 
 class TailscaleSwitch(GLinetSwitchBase):
     _attr_icon = "mdi:vpn"
+    _attr_translation_key = "tailscale"
 
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/tailscale"
-
-    @property
-    def name(self) -> str:
-        return "Tailscale"
 
     @property
     def entity_registry_enabled_default(self) -> bool:
@@ -87,14 +84,11 @@ class WireGuardSwitch(GLinetSwitchBase):
 
 class WireGuardServerSwitch(GLinetSwitchBase):
     _attr_icon = "mdi:vpn"
+    _attr_translation_key = "wg_server"
 
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/wg_server"
-
-    @property
-    def name(self) -> str:
-        return "WG Server"
 
     @property
     def is_on(self) -> bool | None:
@@ -222,14 +216,11 @@ class VpnTunnelSwitch(GLinetSwitchBase):
 
 class OpenVpnServerSwitch(GLinetSwitchBase):
     _attr_icon = "mdi:vpn"
+    _attr_translation_key = "ovpn_server"
 
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/ovpn_server"
-
-    @property
-    def name(self) -> str:
-        return "OpenVPN Server"
 
     @property
     def is_on(self) -> bool | None:
@@ -246,13 +237,11 @@ class OpenVpnServerSwitch(GLinetSwitchBase):
 
 
 class ZeroTierSwitch(GLinetSwitchBase):
+    _attr_translation_key = "zerotier"
+
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/zerotier"
-
-    @property
-    def name(self) -> str:
-        return "ZeroTier"
 
     @property
     def icon(self) -> str:

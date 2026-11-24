@@ -1,0 +1,647 @@
+{
+  "title": "GL.iNet Router",
+  "config": {
+    "step": {
+      "user": {
+        "description": "Gib die Verbindungsdaten deines Routers ein, um dein GL.iNet-Gerät zu verknüpfen.",
+        "data": {
+          "host": "Router-Adresse",
+          "password": "Admin-Passwort",
+          "verify_ssl": "SSL-Zertifikat prüfen",
+          "consider_home": "Abwesenheitsverzögerung",
+          "scan_interval": "Aktualisierungsintervall",
+          "enabled_features": "Aktivierte Funktionen",
+          "wan_status_monitors": "Überwachte WAN-Statussensoren",
+          "add_all_devices": "Unbekannte Geräte erkennen",
+          "cleanup_devices": "Unbekannte Geräte automatisch entfernen",
+          "unknown_devices_filter_mode": "Filtermodus für unbekannte Geräte",
+          "unknown_devices_filter_select": "Unbekannte Geräte auswählen",
+          "unknown_devices_filter_manual": "MAC-Adressen unbekannter Geräte (eine pro Zeile)",
+          "parallel_requests": "Schnellere Aktualisierung (parallele Abfragen)"
+        },
+        "data_description": {
+          "host": "Hostname, URL oder IP-Adresse des Routers.",
+          "password": "Das Admin-Passwort, das auf deinem GL.iNet-Router eingerichtet ist.",
+          "verify_ssl": "Prüft das TLS-Zertifikat des Routers. Nur aktivieren, wenn dein Router ein gültiges Zertifikat verwendet.",
+          "consider_home": "Anzahl Sekunden, nach denen ein getrennter Client als abwesend gilt.",
+          "scan_interval": "Anzahl Sekunden zwischen zwei Abfragen des Routers.",
+          "enabled_features": "Wähle die Funktionsgruppen, die eingerichtet werden sollen. Für deaktivierte Gruppen werden keine Entitäten und Aktionen angelegt.",
+          "wan_status_monitors": "Wähle, welche Schnittstellen und IP-Versionen überwacht werden. Bekannte Schnittstellen-IDs werden mit verständlichen Namen angezeigt, z. B. Ethernet 1 oder Repeater. GL.iNet meldet 0 für verbunden und 1 für getrennt.",
+          "add_all_devices": "Erfasst automatisch jedes mit dem Router verbundene Gerät und legt Entitäten dafür an, auch für Geräte, die noch nicht in Home Assistant eingebunden sind.",
+          "cleanup_devices": "0 schaltet die automatische Bereinigung aus. Jede andere Zahl gilt als Minuten: Unbekannte erkannte Geräte werden entfernt, wenn sie so lange offline oder getrennt sind.",
+          "unknown_devices_filter_mode": "Lege fest, ob die Liste unbekannter Geräte als Whitelist oder Blacklist gilt. (Ohne Auswahl gilt Blacklist, dann wird nichts blockiert.)",
+          "unknown_devices_filter_select": "Wähle aus den aktuell erkannten unbekannten Geräten aus, welche auf die Whitelist oder Blacklist kommen.",
+          "unknown_devices_filter_manual": "Gib die MAC-Adressen unbekannter Geräte für die Whitelist oder Blacklist manuell ein (eine pro Zeile).",
+          "parallel_requests": "Ruft die Daten aller Funktionen gleichzeitig ab, damit jede Aktualisierung schneller geht. Aus (Standard) schont kleine Router."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Der Router ist nicht erreichbar.",
+      "invalid_auth": "Anmeldung mit dem angegebenen Passwort fehlgeschlagen.",
+      "unknown": "Bei der Prüfung der Einstellungen ist ein unerwarteter Fehler aufgetreten."
+    },
+    "abort": {
+      "already_configured": "Dieser Router ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "host": "Router-Adresse",
+          "password": "Admin-Passwort",
+          "verify_ssl": "SSL-Zertifikat prüfen",
+          "consider_home": "Abwesenheitsverzögerung",
+          "scan_interval": "Aktualisierungsintervall",
+          "enabled_features": "Aktivierte Funktionen",
+          "wan_status_monitors": "Überwachte WAN-Statussensoren",
+          "add_all_devices": "Unbekannte Geräte erkennen",
+          "cleanup_devices": "Unbekannte Geräte automatisch entfernen",
+          "unknown_devices_filter_mode": "Filtermodus für unbekannte Geräte",
+          "unknown_devices_filter_select": "Unbekannte Geräte auswählen",
+          "unknown_devices_filter_manual": "MAC-Adressen unbekannter Geräte (eine pro Zeile)",
+          "parallel_requests": "Schnellere Aktualisierung (parallele Abfragen)"
+        },
+        "data_description": {
+          "host": "Hostname, URL oder IP-Adresse des Routers.",
+          "password": "Das Admin-Passwort, das auf deinem GL.iNet-Router eingerichtet ist.",
+          "verify_ssl": "Prüft das TLS-Zertifikat des Routers. Nur aktivieren, wenn dein Router ein gültiges Zertifikat verwendet.",
+          "consider_home": "Anzahl Sekunden, nach denen ein getrennter Client als abwesend gilt.",
+          "scan_interval": "Anzahl Sekunden zwischen zwei Abfragen des Routers.",
+          "enabled_features": "Wähle die Funktionsgruppen, die eingerichtet werden sollen. Für deaktivierte Gruppen werden keine Entitäten und Aktionen angelegt.",
+          "wan_status_monitors": "Wähle, welche Schnittstellen und IP-Versionen überwacht werden. Bekannte Schnittstellen-IDs werden mit verständlichen Namen angezeigt, z. B. Ethernet 1 oder Repeater. GL.iNet meldet 0 für verbunden und 1 für getrennt.",
+          "add_all_devices": "Erfasst automatisch jedes mit dem Router verbundene Gerät und legt Entitäten dafür an, auch für Geräte, die noch nicht in Home Assistant eingebunden sind.",
+          "cleanup_devices": "0 schaltet die automatische Bereinigung aus. Jede andere Zahl gilt als Minuten: Unbekannte erkannte Geräte werden entfernt, wenn sie so lange offline oder getrennt sind.",
+          "unknown_devices_filter_mode": "Lege fest, ob die Liste unbekannter Geräte als Whitelist oder Blacklist gilt. (Ohne Auswahl gilt Blacklist, dann wird nichts blockiert.)",
+          "unknown_devices_filter_select": "Wähle aus den aktuell erkannten unbekannten Geräten aus, welche auf die Whitelist oder Blacklist kommen.",
+          "unknown_devices_filter_manual": "Gib die MAC-Adressen unbekannter Geräte für die Whitelist oder Blacklist manuell ein (eine pro Zeile).",
+          "parallel_requests": "Ruft die Daten aller Funktionen gleichzeitig ab, damit jede Aktualisierung schneller geht. Aus (Standard) schont kleine Router."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Der Router ist nicht erreichbar.",
+      "invalid_auth": "Anmeldung mit dem angegebenen Passwort fehlgeschlagen.",
+      "unknown": "Bei der Prüfung der Einstellungen ist ein unerwarteter Fehler aufgetreten."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "internet": {
+        "name": "Internet"
+      },
+      "repeater_connected": {
+        "name": "Repeater verbunden"
+      },
+      "repeater_bare_mode": {
+        "name": "Repeater-Bare-Mode"
+      },
+      "fan_status": {
+        "name": "Lüfterstatus"
+      },
+      "battery_abnormal": {
+        "name": "Akkustörung"
+      }
+    },
+    "button": {
+      "reboot": {
+        "name": "Neu starten"
+      },
+      "disconnect_repeater": {
+        "name": "Repeater trennen"
+      },
+      "scan_wifi": {
+        "name": "WLAN-Netze suchen"
+      },
+      "test_fan": {
+        "name": "Lüftertest"
+      }
+    },
+    "select": {
+      "wifi_network": {
+        "name": "WLAN-Netz"
+      },
+      "repeater_band": {
+        "name": "Repeater-Band"
+      },
+      "parental_control_group": {
+        "name": "Kindersicherungs-Gruppe"
+      }
+    },
+    "sensor": {
+      "cpu_temp": {
+        "name": "CPU-Temperatur"
+      },
+      "load_avg1": {
+        "name": "Systemlast (1 Min.)"
+      },
+      "load_avg5": {
+        "name": "Systemlast (5 Min.)"
+      },
+      "load_avg15": {
+        "name": "Systemlast (15 Min.)"
+      },
+      "memory_use": {
+        "name": "RAM-Auslastung"
+      },
+      "flash_use": {
+        "name": "Flash-Auslastung"
+      },
+      "uptime": {
+        "name": "Betriebszeit"
+      },
+      "connected_clients": {
+        "name": "Verbundene Clients"
+      },
+      "total_download": {
+        "name": "Download gesamt"
+      },
+      "total_upload": {
+        "name": "Upload gesamt"
+      },
+      "cellular_signal": {
+        "name": "Mobilfunksignal"
+      },
+      "cellular_network": {
+        "name": "Mobilfunknetz"
+      },
+      "sms_messages": {
+        "name": "Ungelesene Nachrichten"
+      },
+      "repeater_state": {
+        "name": "Repeater-Zustand",
+        "state": {
+          "initializing": "Initialisierung",
+          "not_used": "Nicht verwendet",
+          "connecting": "Verbindet",
+          "connected": "Verbunden",
+          "failed": "Fehlgeschlagen",
+          "wan_available": "WAN verfügbar"
+        }
+      },
+      "repeater_ssid": {
+        "name": "Repeater-SSID"
+      },
+      "repeater_signal": {
+        "name": "Repeater-Signal"
+      },
+      "repeater_channel": {
+        "name": "Repeater-Kanal",
+        "state": {
+          "2_4ghz": "2,4 GHz",
+          "5ghz": "5 GHz"
+        }
+      },
+      "repeater_ip": {
+        "name": "Repeater-IP-Adresse"
+      },
+      "repeater_gateway": {
+        "name": "Repeater-Gateway"
+      },
+      "repeater_dns": {
+        "name": "Repeater-DNS"
+      },
+      "repeater_bssid": {
+        "name": "Repeater-BSSID"
+      },
+      "cellular_ipv4": {
+        "name": "Mobilfunk-WAN IPv4"
+      },
+      "cellular_ipv6": {
+        "name": "Mobilfunk-WAN IPv6"
+      },
+      "wg_server_users": {
+        "name": "WireGuard-Server-Benutzer"
+      },
+      "ovpn_server_users": {
+        "name": "OpenVPN-Server-Benutzer"
+      },
+      "cellular_rssi": {
+        "name": "Mobilfunk RSSI"
+      },
+      "cellular_rsrp": {
+        "name": "Mobilfunk RSRP"
+      },
+      "cellular_rsrq": {
+        "name": "Mobilfunk RSRQ"
+      },
+      "cellular_sinr": {
+        "name": "Mobilfunk SINR"
+      },
+      "cellular_band": {
+        "name": "Mobilfunkband"
+      },
+      "cellular_apn": {
+        "name": "Mobilfunk-APN"
+      },
+      "fan_speed": {
+        "name": "Lüfterdrehzahl"
+      },
+      "fan_temperature": {
+        "name": "Lüfter-Schwellentemperatur"
+      },
+      "wan_status": {
+        "name": "Status {interface}"
+      },
+      "firewall_rules": {
+        "name": "Firewall-Regeln"
+      },
+      "port_forwards": {
+        "name": "Portweiterleitungen"
+      },
+      "wan_download_rate": {
+        "name": "WAN-Downloadrate"
+      },
+      "wan_upload_rate": {
+        "name": "WAN-Uploadrate"
+      },
+      "wan_download_total": {
+        "name": "WAN-Download gesamt"
+      },
+      "wan_upload_total": {
+        "name": "WAN-Upload gesamt"
+      },
+      "battery_temperature": {
+        "name": "Akkutemperatur"
+      },
+      "battery_charge": {
+        "name": "Akkuladung"
+      },
+      "battery_charging_status": {
+        "name": "Akku-Ladestatus",
+        "state": {
+          "charging": "Lädt",
+          "not_charging": "Lädt nicht"
+        }
+      },
+      "download_rate": {
+        "name": "Downloadrate"
+      },
+      "upload_rate": {
+        "name": "Uploadrate"
+      },
+      "ip_address": {
+        "name": "IP-Adresse"
+      },
+      "traffic_total": {
+        "name": "{sim} Datenvolumen gesamt"
+      },
+      "days_until_reset": {
+        "name": "{sim} Tage bis zum Zurücksetzen"
+      },
+      "data_limit": {
+        "name": "{sim} Datenlimit"
+      },
+      "wan_status_wan": {
+        "name": "Status Ethernet 1"
+      },
+      "wan_status_wwan": {
+        "name": "Status Repeater"
+      },
+      "wan_status_tethering": {
+        "name": "Status Tethering"
+      },
+      "wan_status_modem_0001": {
+        "name": "Status Mobilfunk"
+      },
+      "wan_status_modem_0001_s1": {
+        "name": "Status Mobilfunk SIM 1"
+      },
+      "wan_status_modem_0001_s2": {
+        "name": "Status Mobilfunk SIM 2"
+      },
+      "wan_status_secondwan": {
+        "name": "Status Ethernet 2"
+      }
+    },
+    "switch": {
+      "tailscale": {
+        "name": "Tailscale"
+      },
+      "repeater_auto_switch": {
+        "name": "Repeater: Netze automatisch wechseln"
+      },
+      "repeater_bare_mode": {
+        "name": "Repeater-Bare-Mode"
+      },
+      "repeater_smart_reconnect": {
+        "name": "Repeater: Intelligente Wiederverbindung"
+      },
+      "wg_server": {
+        "name": "WG-Server"
+      },
+      "ovpn_server": {
+        "name": "OpenVPN-Server"
+      },
+      "zerotier": {
+        "name": "ZeroTier"
+      },
+      "led": {
+        "name": "System-LED"
+      },
+      "adguard_enabled": {
+        "name": "AdGuard Home"
+      },
+      "adguard_dns_enabled": {
+        "name": "AdGuard-Home-DNS"
+      },
+      "parental_control": {
+        "name": "Kindersicherung"
+      },
+      "internet_access": {
+        "name": "Internetzugang"
+      },
+      "firewall_dmz": {
+        "name": "Firewall-DMZ"
+      },
+      "wan_access_ping": {
+        "name": "WAN-Zugriff: Ping"
+      },
+      "wan_access_https": {
+        "name": "WAN-Zugriff: HTTPS"
+      },
+      "wan_access_ssh": {
+        "name": "WAN-Zugriff: SSH"
+      }
+    },
+    "update": {
+      "firmware": {
+        "name": "Firmware"
+      }
+    }
+  },
+  "services": {
+    "send_sms": {
+      "name": "SMS senden",
+      "description": "Sendet eine SMS über das Modem des Routers.",
+      "fields": {
+        "recipient": {
+          "name": "Empfänger",
+          "description": "Die Telefonnummer, an die die Nachricht gesendet wird."
+        },
+        "text": {
+          "name": "Nachricht",
+          "description": "Der Inhalt der SMS."
+        }
+      }
+    },
+    "get_sms": {
+      "name": "SMS abrufen",
+      "description": "Ruft den aktuellen Posteingang vom Router ab.",
+      "fields": {
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "refresh_sms": {
+      "name": "SMS aktualisieren",
+      "description": "Löst manuell eine SMS-Abfrage aus.",
+      "fields": {
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "remove_sms": {
+      "name": "SMS löschen",
+      "description": "Löscht Nachrichten vom Modem.",
+      "fields": {
+        "scope": {
+          "name": "Umfang",
+          "description": "Einzeln (10), alle (11), gelesene (1) oder ungelesene (0) löschen."
+        },
+        "message_id": {
+          "name": "Nachrichten-ID",
+          "description": "Die eindeutige ID der zu löschenden Nachricht (für Umfang 10)."
+        },
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "scan_wifi": {
+      "name": "WLAN-Netze suchen",
+      "description": "Sucht nach verfügbaren WLAN-Netzen, mit denen sich der Router im Repeater-Modus verbinden kann.",
+      "fields": {
+        "all_band": {
+          "name": "Alle Bänder",
+          "description": "Kompatibilitätsoption. Fordert eine neue Suche am Router an."
+        },
+        "dfs": {
+          "name": "DFS einbeziehen",
+          "description": "Kompatibilitätsoption. Fordert eine neue Suche am Router an."
+        },
+        "refresh": {
+          "name": "Neu suchen",
+          "description": "Erzwingt eine neue Suche am Router, statt zwischengespeicherte Ergebnisse zu verwenden."
+        },
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "connect_wifi": {
+      "name": "Mit WLAN verbinden",
+      "description": "Verbindet den Router im Repeater-Modus mit einem offenen oder gesicherten externen WLAN.",
+      "fields": {
+        "ssid": {
+          "name": "SSID",
+          "description": "Der Name des Netzes."
+        },
+        "password": {
+          "name": "Passwort",
+          "description": "Das WLAN-Passwort. Für gesicherte Netze erforderlich, bei offenen Netzen leer lassen."
+        },
+        "remember": {
+          "name": "Merken",
+          "description": "Speichert dieses Netz für später."
+        },
+        "bssid": {
+          "name": "BSSID",
+          "description": "Die MAC-Adresse eines bestimmten Access Points."
+        },
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "disconnect_wifi": {
+      "name": "WLAN trennen",
+      "description": "Trennt die Verbindung zum aktuellen externen WLAN.",
+      "fields": {
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "get_saved_networks": {
+      "name": "Gespeicherte Netze abrufen",
+      "description": "Ruft die Liste der gespeicherten WLAN-Netze für den Repeater-Modus ab.",
+      "fields": {
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "remove_saved_network": {
+      "name": "Gespeichertes Netz entfernen",
+      "description": "Entfernt ein gespeichertes WLAN-Netz vom Router.",
+      "fields": {
+        "ssid": {
+          "name": "SSID",
+          "description": "Der Name des zu entfernenden Netzes."
+        },
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "playground": {
+      "name": "API-Playground",
+      "description": "Sendet eine eigene JSON-RPC- oder ubus-Anfrage an den Router.",
+      "fields": {
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        },
+        "method": {
+          "name": "Methode",
+          "description": "Die JSON-RPC- oder ubus-Methode (z. B. system/get_info)."
+        },
+        "body": {
+          "name": "Inhalt",
+          "description": "Optionale Parameter oder Inhalt der Anfrage."
+        }
+      }
+    },
+    "set_fan_temperature": {
+      "name": "Lüfter-Schwellentemperatur festlegen",
+      "description": "Legt fest, ab welcher Temperatur der Lüfter anläuft.",
+      "fields": {
+        "temperature": {
+          "name": "Schwellentemperatur",
+          "description": "Auslösetemperatur in Grad Celsius (70–90)."
+        },
+        "mac": {
+          "name": "MAC-Adresse",
+          "description": "Optionale MAC-Adresse des Ziel-Routers."
+        }
+      }
+    },
+    "add_firewall_rule": {
+      "name": "Firewall-Regel hinzufügen",
+      "description": "Fügt dem Router eine eigene Firewall-Regel hinzu.",
+      "fields": {
+        "name": {
+          "name": "Name"
+        },
+        "src": {
+          "name": "Quellzone"
+        },
+        "src_ip": {
+          "name": "Quell-IP"
+        },
+        "src_mac": {
+          "name": "Quell-MAC"
+        },
+        "src_port": {
+          "name": "Quellport"
+        },
+        "proto": {
+          "name": "Protokoll"
+        },
+        "dest": {
+          "name": "Zielzone"
+        },
+        "dest_ip": {
+          "name": "Ziel-IP"
+        },
+        "dest_port": {
+          "name": "Zielport"
+        },
+        "target": {
+          "name": "Aktion"
+        },
+        "enabled": {
+          "name": "Aktiviert"
+        }
+      }
+    },
+    "remove_firewall_rule": {
+      "name": "Firewall-Regel entfernen",
+      "description": "Entfernt eine bestehende Firewall-Regel.",
+      "fields": {
+        "rule_id": {
+          "name": "Regel-ID"
+        },
+        "remove_all": {
+          "name": "Alle entfernen"
+        }
+      }
+    },
+    "add_port_forward": {
+      "name": "Portweiterleitung hinzufügen",
+      "description": "Fügt eine Portweiterleitung hinzu.",
+      "fields": {
+        "name": {
+          "name": "Name"
+        },
+        "src": {
+          "name": "Quellzone"
+        },
+        "src_dport": {
+          "name": "Quellport"
+        },
+        "proto": {
+          "name": "Protokoll"
+        },
+        "dest": {
+          "name": "Zielzone"
+        },
+        "dest_ip": {
+          "name": "Ziel-IP"
+        },
+        "dest_port": {
+          "name": "Zielport"
+        },
+        "enabled": {
+          "name": "Aktiviert"
+        }
+      }
+    },
+    "remove_port_forward": {
+      "name": "Portweiterleitung entfernen",
+      "description": "Entfernt eine bestehende Portweiterleitung.",
+      "fields": {
+        "rule_id": {
+          "name": "Regel-ID"
+        },
+        "remove_all": {
+          "name": "Alle entfernen"
+        }
+      }
+    },
+    "set_dmz": {
+      "name": "DMZ festlegen",
+      "description": "Konfiguriert die DMZ-Einstellungen.",
+      "fields": {
+        "enabled": {
+          "name": "Aktiviert"
+        },
+        "dest_ip": {
+          "name": "Ziel-IP"
+        }
+      }
+    }
+  }
+}

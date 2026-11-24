@@ -12,14 +12,11 @@ from .switch_base import GLinetSwitchBase
 
 class GLinetParentalControlGlobalSwitch(GLinetSwitchBase):
     _attr_icon = "mdi:account-child"
+    _attr_translation_key = "parental_control"
 
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/parental_control"
-
-    @property
-    def name(self) -> str:
-        return "Parental control"
 
     @property
     def is_on(self) -> bool | None:
@@ -73,6 +70,7 @@ class GLinetParentalControlGroupSwitch(GLinetSwitchBase):
 
 class GLinetClientInternetAccessSwitch(GLinetSwitchBase):
     _attr_icon = "mdi:web-check"
+    _attr_translation_key = "internet_access"
 
     def __init__(self, hub: GLinetHub, device: ClientDeviceInfo) -> None:
         super().__init__(hub)
@@ -86,10 +84,6 @@ class GLinetClientInternetAccessSwitch(GLinetSwitchBase):
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._device.mac}/internet_access"
-
-    @property
-    def name(self) -> str:
-        return "Internet access"
 
     @property
     def is_on(self) -> bool | None:

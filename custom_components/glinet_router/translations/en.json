@@ -79,9 +79,56 @@
           "parallel_requests": "Fetch data from all features at the same time to speed up each refresh. Off (default) is gentler on small routers."
         }
       }
+    },
+    "error": {
+      "cannot_connect": "Could not contact the router",
+      "invalid_auth": "Authentication failed with the supplied password",
+      "unknown": "An unexpected validation issue occurred"
     }
   },
   "entity": {
+    "binary_sensor": {
+      "internet": {
+        "name": "Internet"
+      },
+      "repeater_connected": {
+        "name": "Repeater connected"
+      },
+      "repeater_bare_mode": {
+        "name": "Repeater bare mode"
+      },
+      "fan_status": {
+        "name": "Fan status"
+      },
+      "battery_abnormal": {
+        "name": "Battery abnormal"
+      }
+    },
+    "button": {
+      "reboot": {
+        "name": "Reboot"
+      },
+      "disconnect_repeater": {
+        "name": "Disconnect repeater"
+      },
+      "scan_wifi": {
+        "name": "Scan WiFi networks"
+      },
+      "test_fan": {
+        "name": "Fan test"
+      }
+    },
+    "select": {
+      "wifi_network": {
+        "name": "WiFi network"
+      },
+      "repeater_band": {
+        "name": "Repeater band"
+      },
+      "parental_control_group": {
+        "name": "Parental control group"
+      }
+    },
     "sensor": {
       "cpu_temp": {
         "name": "CPU temperature"
@@ -169,39 +216,103 @@
       },
       "ovpn_server_users": {
         "name": "OpenVPN server users"
-      }
-    },
-    "binary_sensor": {
-      "internet": {
-        "name": "Internet"
       },
-      "repeater_connected": {
-        "name": "Repeater connected"
+      "cellular_rssi": {
+        "name": "Cellular RSSI"
       },
-      "repeater_bare_mode": {
-        "name": "Repeater bare mode"
-      }
-    },
-    "button": {
-      "reboot": {
-        "name": "Reboot"
+      "cellular_rsrp": {
+        "name": "Cellular RSRP"
       },
-      "disconnect_repeater": {
-        "name": "Disconnect repeater"
+      "cellular_rsrq": {
+        "name": "Cellular RSRQ"
       },
-      "scan_wifi": {
-        "name": "Scan WiFi networks"
-      }
-    },
-    "select": {
-      "wifi_network": {
-        "name": "WiFi network"
+      "cellular_sinr": {
+        "name": "Cellular SINR"
       },
-      "repeater_band": {
-        "name": "Repeater band"
+      "cellular_band": {
+        "name": "Cellular band"
       },
-      "parental_control_group": {
-        "name": "Parental control group"
+      "cellular_apn": {
+        "name": "Cellular APN"
+      },
+      "fan_speed": {
+        "name": "Fan speed"
+      },
+      "fan_temperature": {
+        "name": "Fan threshold temperature"
+      },
+      "wan_status": {
+        "name": "{interface} status"
+      },
+      "firewall_rules": {
+        "name": "Firewall rules"
+      },
+      "port_forwards": {
+        "name": "Port forwards"
+      },
+      "wan_download_rate": {
+        "name": "WAN download rate"
+      },
+      "wan_upload_rate": {
+        "name": "WAN upload rate"
+      },
+      "wan_download_total": {
+        "name": "WAN total download"
+      },
+      "wan_upload_total": {
+        "name": "WAN total upload"
+      },
+      "battery_temperature": {
+        "name": "Battery temperature"
+      },
+      "battery_charge": {
+        "name": "Battery charge"
+      },
+      "battery_charging_status": {
+        "name": "Battery charging status",
+        "state": {
+          "charging": "Charging",
+          "not_charging": "Not charging"
+        }
+      },
+      "download_rate": {
+        "name": "Download rate"
+      },
+      "upload_rate": {
+        "name": "Upload rate"
+      },
+      "ip_address": {
+        "name": "IP address"
+      },
+      "traffic_total": {
+        "name": "{sim} Traffic total"
+      },
+      "days_until_reset": {
+        "name": "{sim} Days until reset"
+      },
+      "data_limit": {
+        "name": "{sim} Data limit"
+      },
+      "wan_status_wan": {
+        "name": "Ethernet 1 status"
+      },
+      "wan_status_wwan": {
+        "name": "Repeater status"
+      },
+      "wan_status_tethering": {
+        "name": "Tethering status"
+      },
+      "wan_status_modem_0001": {
+        "name": "Cellular status"
+      },
+      "wan_status_modem_0001_s1": {
+        "name": "Cellular SIM 1 status"
+      },
+      "wan_status_modem_0001_s2": {
+        "name": "Cellular SIM 2 status"
+      },
+      "wan_status_secondwan": {
+        "name": "Ethernet 2 status"
       }
     },
     "switch": {
@@ -240,6 +351,23 @@
       },
       "internet_access": {
         "name": "Internet access"
+      },
+      "firewall_dmz": {
+        "name": "Firewall DMZ"
+      },
+      "wan_access_ping": {
+        "name": "WAN Ping"
+      },
+      "wan_access_https": {
+        "name": "WAN HTTPS Access"
+      },
+      "wan_access_ssh": {
+        "name": "WAN SSH Access"
+      }
+    },
+    "update": {
+      "firmware": {
+        "name": "Firmware"
       }
     }
   },
@@ -393,6 +521,125 @@
         "body": {
           "name": "Body",
           "description": "Optional parameters or body for the request."
+        }
+      }
+    },
+    "set_fan_temperature": {
+      "name": "Set fan threshold temperature",
+      "description": "Set the temperature threshold at which the fan should start running.",
+      "fields": {
+        "temperature": {
+          "name": "Threshold temperature",
+          "description": "Trigger temperature in Celsius (70-90)."
+        },
+        "mac": {
+          "name": "MAC address",
+          "description": "Optional MAC of the target router."
+        }
+      }
+    },
+    "add_firewall_rule": {
+      "name": "Add firewall rule",
+      "description": "Add a custom firewall rule to the router.",
+      "fields": {
+        "name": {
+          "name": "Name"
+        },
+        "src": {
+          "name": "Source Zone"
+        },
+        "src_ip": {
+          "name": "Source IP"
+        },
+        "src_mac": {
+          "name": "Source MAC"
+        },
+        "src_port": {
+          "name": "Source Port"
+        },
+        "proto": {
+          "name": "Protocol"
+        },
+        "dest": {
+          "name": "Destination Zone"
+        },
+        "dest_ip": {
+          "name": "Destination IP"
+        },
+        "dest_port": {
+          "name": "Destination Port"
+        },
+        "target": {
+          "name": "Target"
+        },
+        "enabled": {
+          "name": "Enabled"
+        }
+      }
+    },
+    "remove_firewall_rule": {
+      "name": "Remove firewall rule",
+      "description": "Remove an existing firewall rule.",
+      "fields": {
+        "rule_id": {
+          "name": "Rule ID"
+        },
+        "remove_all": {
+          "name": "Remove all"
+        }
+      }
+    },
+    "add_port_forward": {
+      "name": "Add port forward",
+      "description": "Add a port forwarding rule.",
+      "fields": {
+        "name": {
+          "name": "Name"
+        },
+        "src": {
+          "name": "Source Zone"
+        },
+        "src_dport": {
+          "name": "Source Port"
+        },
+        "proto": {
+          "name": "Protocol"
+        },
+        "dest": {
+          "name": "Destination Zone"
+        },
+        "dest_ip": {
+          "name": "Destination IP"
+        },
+        "dest_port": {
+          "name": "Destination Port"
+        },
+        "enabled": {
+          "name": "Enabled"
+        }
+      }
+    },
+    "remove_port_forward": {
+      "name": "Remove port forward",
+      "description": "Remove an existing port forwarding rule.",
+      "fields": {
+        "rule_id": {
+          "name": "Rule ID"
+        },
+        "remove_all": {
+          "name": "Remove all"
+        }
+      }
+    },
+    "set_dmz": {
+      "name": "Set DMZ",
+      "description": "Configure DMZ settings.",
+      "fields": {
+        "enabled": {
+          "name": "Enabled"
+        },
+        "dest_ip": {
+          "name": "Destination IP"
         }
       }
     }

@@ -52,7 +52,15 @@ To add a new sensor for an existing API endpoint:
 3. **Hub:** Update `hub.py` to fetch, store, and expose the new data point.
 4. **Entities:** Add your sensor to `entities/sensor.py`.
 5. **Diagnostics:** Update `diagnostics.py` to include the new data point in the export.
-6. **Tests:** Update your mock tests in `tests/` to ensure the new sensor state works correctly.
+6. **Translations:** Give the entity a `translation_key` instead of a hard-coded `name` and add the name to `strings.json`, `translations/en.json` and every other file in `translations/` (see [Translations](#translations)).
+7. **Tests:** Update your mock tests in `tests/` to ensure the new sensor state works correctly.
+
+### Translations
+Entity names, states, config/options forms and action descriptions are translated through Home Assistant's translation files:
+- `strings.json` and `translations/en.json` must stay identical. Home Assistant only reads `translations/<language>.json` for custom integrations, so `en.json` is what English users see.
+- Every other language file in `translations/` (currently `de.json`) must contain exactly the same keys and the same `{placeholders}` as `en.json`. `tests/test_translations.py` enforces this.
+- Entities set `translation_key` (and `translation_placeholders` for parts such as the SIM slot or WAN interface) rather than `name`. Names that come from router data, such as SSIDs, VPN tunnel, client or parental-control group names, stay as they are.
+- Keep the English text of an existing entity unchanged: English names are used to generate entity IDs on new installations.
 
 ### Tooling
 The project relies on standard Python development tools:

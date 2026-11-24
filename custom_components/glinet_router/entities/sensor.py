@@ -14,7 +14,7 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from ..const import FEATURE_CELLULAR, FEATURE_REPEATER
+from ..const import FEATURE_CELLULAR, FEATURE_REPEATER, WAN_INTERFACE_NAMES
 from ..hub import GLinetHub
 from ..models import ClientDeviceInfo
 from ..utils import channel_to_band
@@ -86,7 +86,7 @@ async def async_setup_entry(
             hub=hub,
             entity_description=SystemStatusEntityDescription(
                 key="uptime",
-                name="Uptime",
+                translation_key="uptime",
                 has_entity_name=True,
                 icon="mdi:clock",
                 entity_category=EntityCategory.DIAGNOSTIC,
@@ -271,7 +271,7 @@ class CellularTrafficSensor(CoordinatorEntity[GLinetHub], SensorEntity):
         self.entity_description = entity_description
         self._slot = entity_description.slot
         self._sim_type = entity_description.sim_type
-        self._attr_name = f"{_traffic_sim_label(self._slot)} {entity_description.name}".strip()
+        self._attr_translation_placeholders = {"sim": _traffic_sim_label(self._slot)}
         self._attr_device_info = hub.device_info
 
     @property
@@ -311,7 +311,11 @@ class WanStatusSensor(CoordinatorEntity[GLinetHub], SensorEntity):
         self._interface_name = interface_name
         self._interface_label = _wan_interface_label(interface_name)
         self._protocols = protocols
-        self._attr_name = f"{self._interface_label} status"
+        if interface_name in WAN_INTERFACE_NAMES:
+            self._attr_translation_key = f"wan_status_{interface_name}"
+        else:
+            self._attr_translation_key = "wan_status"
+            self._attr_translation_placeholders = {"interface": self._interface_label}
         self._attr_device_info = hub.device_info
 
     @property

@@ -55,14 +55,11 @@ class WifiApSwitch(GLinetSwitchBase):
 
 class LedSwitch(GLinetSwitchBase):
     _attr_icon = "mdi:led-on"
+    _attr_translation_key = "led"
 
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/led"
-
-    @property
-    def name(self) -> str:
-        return "System LED"
 
     @property
     def is_on(self) -> bool | None:

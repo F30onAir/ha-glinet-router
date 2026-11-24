@@ -28,6 +28,7 @@ async def async_setup_entry(
 class RebootButton(CoordinatorEntity[GLinetHub], ButtonEntity):
     _attr_icon = "mdi:restart"
     _attr_has_entity_name = True
+    _attr_translation_key = "reboot"
 
     def __init__(self, hub: GLinetHub) -> None:
         super().__init__(hub)
@@ -42,10 +43,6 @@ class RebootButton(CoordinatorEntity[GLinetHub], ButtonEntity):
     def entity_category(self) -> EntityCategory:
         return EntityCategory.CONFIG
 
-    @property
-    def name(self) -> str:
-        return "Reboot"
-
     async def async_press(self) -> None:
         await self._hub.reboot()
 
@@ -53,6 +50,7 @@ class RebootButton(CoordinatorEntity[GLinetHub], ButtonEntity):
 class DisconnectRepeaterButton(CoordinatorEntity[GLinetHub], ButtonEntity):
     _attr_icon = "mdi:wifi-off"
     _attr_has_entity_name = True
+    _attr_translation_key = "disconnect_repeater"
 
     def __init__(self, hub: GLinetHub) -> None:
         super().__init__(hub)
@@ -67,10 +65,6 @@ class DisconnectRepeaterButton(CoordinatorEntity[GLinetHub], ButtonEntity):
     def entity_category(self) -> EntityCategory:
         return EntityCategory.CONFIG
 
-    @property
-    def name(self) -> str:
-        return "Disconnect repeater"
-
     async def async_press(self) -> None:
         await self._hub.disconnect_wifi()
 
@@ -78,6 +72,7 @@ class DisconnectRepeaterButton(CoordinatorEntity[GLinetHub], ButtonEntity):
 class ScanWifiButton(CoordinatorEntity[GLinetHub], ButtonEntity):
     _attr_icon = "mdi:wifi-sync"
     _attr_has_entity_name = True
+    _attr_translation_key = "scan_wifi"
 
     def __init__(self, hub: GLinetHub) -> None:
         super().__init__(hub)
@@ -92,17 +87,12 @@ class ScanWifiButton(CoordinatorEntity[GLinetHub], ButtonEntity):
     def entity_category(self) -> EntityCategory:
         return EntityCategory.CONFIG
 
-    @property
-    def name(self) -> str:
-        return "Scan WiFi networks"
-
     async def async_press(self) -> None:
         await self._hub.scan_wifi_networks()
 
 
 class TestFanButton(CoordinatorEntity[GLinetHub], ButtonEntity):
     _attr_has_entity_name = True
-    _attr_name = "Fan test"
     _attr_translation_key = "test_fan"
     _attr_icon = "mdi:fan-alert"
     _attr_entity_category = EntityCategory.DIAGNOSTIC

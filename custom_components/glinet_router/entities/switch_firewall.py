@@ -11,14 +11,11 @@ _LOGGER = logging.getLogger(__name__)
 
 class GLinetDMZSwitch(GLinetSwitchBase):
     _attr_icon = "mdi:shield-off"
+    _attr_translation_key = "firewall_dmz"
 
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/firewall_dmz"
-
-    @property
-    def name(self) -> str:
-        return "Firewall DMZ"
 
     @property
     def is_on(self) -> bool | None:
@@ -41,19 +38,15 @@ class GLinetDMZSwitch(GLinetSwitchBase):
 
 
 class GLinetWANAccessSwitch(GLinetSwitchBase):
-    def __init__(self, hub: GLinetHub, access_type: str, name: str, icon: str) -> None:
+    def __init__(self, hub: GLinetHub, access_type: str, icon: str) -> None:
         super().__init__(hub)
         self._access_type = access_type
-        self._name = name
+        self._attr_translation_key = f"wan_access_{access_type}"
         self._attr_icon = icon
 
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/wan_access_{self._access_type}"
-
-    @property
-    def name(self) -> str:
-        return self._name
 
     @property
     def is_on(self) -> bool | None:

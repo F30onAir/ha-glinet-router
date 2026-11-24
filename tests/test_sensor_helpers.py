@@ -18,6 +18,7 @@ def _install_sensor_dependency_stubs() -> None:
         has_entity_name: bool | None = None
         icon: str | None = None
         entity_category: str | None = None
+        translation_key: str | None = None
         device_class: str | None = None
         native_unit_of_measurement: str | None = None
         state_class: str | None = None
@@ -117,7 +118,7 @@ def test_wan_status_helpers_report_interface_protocol_state() -> None:
     hub.hass = object()
     sensor = WanStatusSensor(hub, "wan", {"ipv4", "ipv6"})
 
-    assert sensor._attr_name == "Ethernet 1 status"
+    assert sensor._attr_translation_key == "wan_status_wan"
     assert sensor.unique_id == "glinet_sensor/00:11:22:33:44:55/wan_status_wan"
     assert sensor.native_value == "Up"
     assert sensor.extra_state_attributes == {
@@ -135,7 +136,8 @@ def test_wan_status_helpers_report_interface_protocol_state() -> None:
     assert sensor.native_value == "Down"
 
     unknown_sensor = WanStatusSensor(hub, "custom_wan", {"ipv4"})
-    assert unknown_sensor._attr_name == "custom_wan status"
+    assert unknown_sensor._attr_translation_key == "wan_status"
+    assert unknown_sensor._attr_translation_placeholders == {"interface": "custom_wan"}
 
 
 def test_sms_sensor_counts_only_unread_messages() -> None:
@@ -780,7 +782,8 @@ def test_cellular_traffic_sensor_value_fns_return_per_slot_values() -> None:
     assert traffic_sensor.unique_id == (
         "glinet_sensor/00:11:22:33:44:55/cellular_traffic_sim_1_0_traffic_total"
     )
-    assert traffic_sensor._attr_name == "SIM 1 Traffic total"
+    assert traffic_sensor.entity_description.translation_key == "traffic_total"
+    assert traffic_sensor._attr_translation_placeholders == {"sim": "SIM 1"}
     assert traffic_sensor.native_value == 4096
     assert traffic_sensor.available is True
 

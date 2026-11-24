@@ -39,7 +39,7 @@ class GLinetFirmwareUpdateEntity(CoordinatorEntity[GLinetHub], UpdateEntity):
     _attr_has_entity_name = True
     _attr_device_class = UpdateDeviceClass.FIRMWARE
     _attr_icon = "mdi:package-up"
-    _attr_name = "Firmware"
+    _attr_translation_key = "firmware"
 
     def __init__(self, hub: GLinetHub) -> None:
         super().__init__(hub)

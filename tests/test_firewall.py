@@ -366,7 +366,7 @@ async def test_dmz_switch_exposes_state_and_disables_dmz() -> None:
     switch = GLinetDMZSwitch(hub)
 
     assert switch.unique_id == "glinet_switch/00:11:22:33:44:55/firewall_dmz"
-    assert switch.name == "Firewall DMZ"
+    assert switch.translation_key == "firewall_dmz"
     assert switch.is_on is True
     assert switch.extra_state_attributes == {"destination_ip": "192.168.8.50"}
 
@@ -386,10 +386,10 @@ async def test_wan_access_switch_toggles_selected_access_type() -> None:
         async_request_refresh=AsyncMock(),
     )
 
-    switch = GLinetWANAccessSwitch(hub, "ping", "WAN Ping", "mdi:access-point-network")
+    switch = GLinetWANAccessSwitch(hub, "ping", "mdi:access-point-network")
 
     assert switch.unique_id == "glinet_switch/00:11:22:33:44:55/wan_access_ping"
-    assert switch.name == "WAN Ping"
+    assert switch.translation_key == "wan_access_ping"
     assert switch.is_on is False
 
     await switch.async_turn_on()

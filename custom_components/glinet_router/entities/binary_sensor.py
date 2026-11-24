@@ -40,7 +40,7 @@ async def async_setup_entry(
 
 class RepeaterConnectedBinarySensor(CoordinatorEntity[GLinetHub], BinarySensorEntity):
     _attr_has_entity_name = True
-    _attr_name = "Repeater connected"
+    _attr_translation_key = "repeater_connected"
     _attr_device_class = BinarySensorDeviceClass.CONNECTIVITY
     _attr_icon = "mdi:wifi-sync"
 
@@ -100,7 +100,6 @@ class RepeaterBareModeBinarySensor(CoordinatorEntity[GLinetHub], BinarySensorEnt
 
 class FanRunningBinarySensor(CoordinatorEntity[GLinetHub], BinarySensorEntity):
     _attr_has_entity_name = True
-    _attr_name = "Fan status"
     _attr_translation_key = "fan_status"
     _attr_device_class = BinarySensorDeviceClass.RUNNING
     _attr_entity_category = EntityCategory.DIAGNOSTIC
@@ -131,7 +130,7 @@ class FanRunningBinarySensor(CoordinatorEntity[GLinetHub], BinarySensorEntity):
 
 class GLinetBatteryAbnormalBinarySensor(CoordinatorEntity[GLinetHub], BinarySensorEntity):
     _attr_has_entity_name = True
-    _attr_name = "Battery abnormal"
+    _attr_translation_key = "battery_abnormal"
     _attr_entity_category = EntityCategory.DIAGNOSTIC
     _attr_icon = "mdi:battery-alert"
 

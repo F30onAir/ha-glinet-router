@@ -3,7 +3,7 @@
   "config": {
     "step": {
       "user": {
-        "description": "Enter your router connection details, choose the feature groups to enable, and select which WAN status sensors Home Assistant should create.",
+        "description": "Provide router details to link your GL.iNet device",
         "data": {
           "host": "Router Address",
           "password": "Admin Password",
@@ -16,13 +16,14 @@
           "cleanup_devices": "Auto-cleanup unknown devices",
           "unknown_devices_filter_mode": "Unknown Devices Filter Mode",
           "unknown_devices_filter_select": "Select Unknown Devices",
-          "unknown_devices_filter_manual": "Unknown Devices Manual MAC Address List (One per line)"
+          "unknown_devices_filter_manual": "Unknown Devices Manual MAC Address List (One per line)",
+          "parallel_requests": "Faster updates (parallel fetching)"
         },
         "data_description": {
-          "host": "Use the router URL or IP address (for example: http://192.168.8.1).",
-          "password": "Provide the same password you use for the router admin interface.",
+          "host": "Type the router hostname, URL, or IP address.",
+          "password": "Enter the admin password configured on your GL.iNet router.",
           "verify_ssl": "Validate the router's TLS certificate. Enable this only if your router uses a valid certificate.",
-          "consider_home": "Set how many seconds a client can be offline before it is marked away.",
+          "consider_home": "Number of seconds before a disconnected client is treated as away.",
           "scan_interval": "Number of seconds between polling the router for updates.",
           "enabled_features": "Choose the integration feature groups to set up. Disabled feature groups will not create their related entities or services.",
           "wan_status_monitors": "Choose the interface and IP version checks to monitor. Known router interface IDs are shown with friendly names, such as Ethernet 1 and Repeater. GL.iNet reports 0 as up and 1 as down.",
@@ -30,17 +31,18 @@
           "cleanup_devices": "Set this to 0 to disable automatic cleanup. Any other number is treated as minutes; unknown discovered devices are removed after that period if they remain offline or disconnected.",
           "unknown_devices_filter_mode": "Select whether the list of unknown devices behaves as a whitelist or blacklist. (Blank defaults to Blacklist which won't block anything)",
           "unknown_devices_filter_select": "Select from currently discovered unknown devices to whitelist or blacklist.",
-          "unknown_devices_filter_manual": "Manually enter MAC addresses (one per line) of unknown devices to whitelist or blacklist."
+          "unknown_devices_filter_manual": "Manually enter MAC addresses (one per line) of unknown devices to whitelist or blacklist.",
+          "parallel_requests": "Fetch data from all features at the same time to speed up each refresh. Off (default) is gentler on small routers."
         }
       }
     },
     "error": {
-      "cannot_connect": "Unable to reach the router",
-      "invalid_auth": "The password was rejected",
-      "unknown": "Something went wrong while validating settings"
+      "cannot_connect": "Could not contact the router",
+      "invalid_auth": "Authentication failed with the supplied password",
+      "unknown": "An unexpected validation issue occurred"
     },
     "abort": {
-      "already_configured": "This GL.iNet router is already set up"
+      "already_configured": "This router has already been configured"
     }
   },
   "options": {
@@ -58,13 +60,14 @@
           "cleanup_devices": "Auto-cleanup unknown devices",
           "unknown_devices_filter_mode": "Unknown Devices Filter Mode",
           "unknown_devices_filter_select": "Select Unknown Devices",
-          "unknown_devices_filter_manual": "Unknown Devices Manual MAC Address List (One per line)"
+          "unknown_devices_filter_manual": "Unknown Devices Manual MAC Address List (One per line)",
+          "parallel_requests": "Faster updates (parallel fetching)"
         },
         "data_description": {
-          "host": "Use the router URL or IP address (for example: http://192.168.8.1).",
-          "password": "Provide the same password you use for the router admin interface.",
+          "host": "Type the router hostname, URL, or IP address.",
+          "password": "Enter the admin password configured on your GL.iNet router.",
           "verify_ssl": "Validate the router's TLS certificate. Enable this only if your router uses a valid certificate.",
-          "consider_home": "Set how many seconds a client can be offline before it is marked away.",
+          "consider_home": "Number of seconds before a disconnected client is treated as away.",
           "scan_interval": "Number of seconds between polling the router for updates.",
           "enabled_features": "Choose the integration feature groups to set up. Disabled feature groups will not create their related entities or services.",
           "wan_status_monitors": "Choose the interface and IP version checks to monitor. Known router interface IDs are shown with friendly names, such as Ethernet 1 and Repeater. GL.iNet reports 0 as up and 1 as down.",
@@ -72,12 +75,60 @@
           "cleanup_devices": "Set this to 0 to disable automatic cleanup. Any other number is treated as minutes; unknown discovered devices are removed after that period if they remain offline or disconnected.",
           "unknown_devices_filter_mode": "Select whether the list of unknown devices behaves as a whitelist or blacklist. (Blank defaults to Blacklist which won't block anything)",
           "unknown_devices_filter_select": "Select from currently discovered unknown devices to whitelist or blacklist.",
-          "unknown_devices_filter_manual": "Manually enter MAC addresses (one per line) of unknown devices to whitelist or blacklist."
+          "unknown_devices_filter_manual": "Manually enter MAC addresses (one per line) of unknown devices to whitelist or blacklist.",
+          "parallel_requests": "Fetch data from all features at the same time to speed up each refresh. Off (default) is gentler on small routers."
         }
       }
+    },
+    "error": {
+      "cannot_connect": "Could not contact the router",
+      "invalid_auth": "Authentication failed with the supplied password",
+      "unknown": "An unexpected validation issue occurred"
     }
   },
   "entity": {
+    "binary_sensor": {
+      "internet": {
+        "name": "Internet"
+      },
+      "repeater_connected": {
+        "name": "Repeater connected"
+      },
+      "repeater_bare_mode": {
+        "name": "Repeater bare mode"
+      },
+      "fan_status": {
+        "name": "Fan status"
+      },
+      "battery_abnormal": {
+        "name": "Battery abnormal"
+      }
+    },
+    "button": {
+      "reboot": {
+        "name": "Reboot"
+      },
+      "disconnect_repeater": {
+        "name": "Disconnect repeater"
+      },
+      "scan_wifi": {
+        "name": "Scan WiFi networks"
+      },
+      "test_fan": {
+        "name": "Fan test"
+      }
+    },
+    "select": {
+      "wifi_network": {
+        "name": "WiFi network"
+      },
+      "repeater_band": {
+        "name": "Repeater band"
+      },
+      "parental_control_group": {
+        "name": "Parental control group"
+      }
+    },
     "sensor": {
       "cpu_temp": {
         "name": "CPU temperature"
@@ -103,29 +154,17 @@
       "connected_clients": {
         "name": "Connected clients"
       },
+      "total_download": {
+        "name": "Total download"
+      },
+      "total_upload": {
+        "name": "Total upload"
+      },
       "cellular_signal": {
         "name": "Cellular signal"
       },
-      "cellular_rssi": {
-        "name": "Cellular RSSI"
-      },
-      "cellular_rsrp": {
-        "name": "Cellular RSRP"
-      },
-      "cellular_rsrq": {
-        "name": "Cellular RSRQ"
-      },
-      "cellular_sinr": {
-        "name": "Cellular SINR"
-      },
-      "cellular_band": {
-        "name": "Cellular band"
-      },
       "cellular_network": {
         "name": "Cellular network"
-      },
-      "cellular_apn": {
-        "name": "Cellular APN"
       },
       "sms_messages": {
         "name": "Unread messages"
@@ -166,12 +205,6 @@
       "repeater_bssid": {
         "name": "Repeater BSSID"
       },
-      "fan_speed": {
-        "name": "Fan speed"
-      },
-      "fan_temperature": {
-        "name": "Fan threshold temperature"
-      },
       "cellular_ipv4": {
         "name": "Cellular WAN IPv4"
       },
@@ -184,50 +217,102 @@
       "ovpn_server_users": {
         "name": "OpenVPN server users"
       },
+      "cellular_rssi": {
+        "name": "Cellular RSSI"
+      },
+      "cellular_rsrp": {
+        "name": "Cellular RSRP"
+      },
+      "cellular_rsrq": {
+        "name": "Cellular RSRQ"
+      },
+      "cellular_sinr": {
+        "name": "Cellular SINR"
+      },
+      "cellular_band": {
+        "name": "Cellular band"
+      },
+      "cellular_apn": {
+        "name": "Cellular APN"
+      },
+      "fan_speed": {
+        "name": "Fan speed"
+      },
+      "fan_temperature": {
+        "name": "Fan threshold temperature"
+      },
       "wan_status": {
-        "name": "WAN status"
+        "name": "{interface} status"
       },
       "firewall_rules": {
         "name": "Firewall rules"
       },
       "port_forwards": {
         "name": "Port forwards"
-      }
-    },
-    "binary_sensor": {
-      "repeater_connected": {
-        "name": "Repeater connected"
       },
-      "repeater_bare_mode": {
-        "name": "Repeater bare mode"
+      "wan_download_rate": {
+        "name": "WAN download rate"
       },
-      "fan_status": {
-        "name": "Fan status"
-      }
-    },
-    "button": {
-      "reboot": {
-        "name": "Reboot"
+      "wan_upload_rate": {
+        "name": "WAN upload rate"
       },
-      "disconnect_repeater": {
-        "name": "Disconnect repeater"
+      "wan_download_total": {
+        "name": "WAN total download"
       },
-      "scan_wifi": {
-        "name": "Scan WiFi networks"
+      "wan_upload_total": {
+        "name": "WAN total upload"
       },
-      "test_fan": {
-        "name": "Fan test"
-      }
-    },
-    "select": {
-      "wifi_network": {
-        "name": "WiFi network"
+      "battery_temperature": {
+        "name": "Battery temperature"
       },
-      "repeater_band": {
-        "name": "Repeater band"
+      "battery_charge": {
+        "name": "Battery charge"
       },
-      "parental_control_group": {
-        "name": "Parental control group"
+      "battery_charging_status": {
+        "name": "Battery charging status",
+        "state": {
+          "charging": "Charging",
+          "not_charging": "Not charging"
+        }
+      },
+      "download_rate": {
+        "name": "Download rate"
+      },
+      "upload_rate": {
+        "name": "Upload rate"
+      },
+      "ip_address": {
+        "name": "IP address"
+      },
+      "traffic_total": {
+        "name": "{sim} Traffic total"
+      },
+      "days_until_reset": {
+        "name": "{sim} Days until reset"
+      },
+      "data_limit": {
+        "name": "{sim} Data limit"
+      },
+      "wan_status_wan": {
+        "name": "Ethernet 1 status"
+      },
+      "wan_status_wwan": {
+        "name": "Repeater status"
+      },
+      "wan_status_tethering": {
+        "name": "Tethering status"
+      },
+      "wan_status_modem_0001": {
+        "name": "Cellular status"
+      },
+      "wan_status_modem_0001_s1": {
+        "name": "Cellular SIM 1 status"
+      },
+      "wan_status_modem_0001_s2": {
+        "name": "Cellular SIM 2 status"
+      },
+      "wan_status_secondwan": {
+        "name": "Ethernet 2 status"
       }
     },
     "switch": {
@@ -261,26 +346,30 @@
       "adguard_dns_enabled": {
         "name": "AdGuard Home DNS"
       },
+      "parental_control": {
+        "name": "Parental control"
+      },
+      "internet_access": {
+        "name": "Internet access"
+      },
       "firewall_dmz": {
         "name": "Firewall DMZ"
       },
       "wan_access_ping": {
-        "name": "WAN Ping Access"
+        "name": "WAN Ping"
       },
       "wan_access_https": {
         "name": "WAN HTTPS Access"
       },
       "wan_access_ssh": {
         "name": "WAN SSH Access"
-      },
-      "parental_control": {
-        "name": "Parental control"
-      },
-      "internet_access": {
-        "name": "Internet access"
       }
     },
-    "number": {}
+    "update": {
+      "firmware": {
+        "name": "Firmware"
+      }
+    }
   },
   "services": {
     "send_sms": {
@@ -417,6 +506,24 @@
         }
       }
     },
+    "playground": {
+      "name": "API Playground",
+      "description": "Send a custom JSON-RPC or ubus request to the router.",
+      "fields": {
+        "mac": {
+          "name": "MAC address",
+          "description": "Optional MAC of the target router."
+        },
+        "method": {
+          "name": "Method",
+          "description": "The JSON-RPC or ubus method (e.g. system/get_info)."
+        },
+        "body": {
+          "name": "Body",
+          "description": "Optional parameters or body for the request."
+        }
+      }
+    },
     "set_fan_temperature": {
       "name": "Set fan threshold temperature",
       "description": "Set the temperature threshold at which the fan should start running.",
@@ -533,24 +640,6 @@
         },
         "dest_ip": {
           "name": "Destination IP"
-        }
-      }
-    },
-    "playground": {
-      "name": "API Playground",
-      "description": "Send a custom JSON-RPC or ubus request to the router.",
-      "fields": {
-        "mac": {
-          "name": "MAC address",
-          "description": "Optional MAC of the target router."
-        },
-        "method": {
-          "name": "Method",
-          "description": "The JSON-RPC or ubus method (e.g. system/get_info)."
-        },
-        "body": {
-          "name": "Body",
-          "description": "Optional parameters or body for the request."
         }
       }
     }

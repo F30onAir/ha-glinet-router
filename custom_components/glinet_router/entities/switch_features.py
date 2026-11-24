@@ -7,14 +7,11 @@ from .switch_base import GLinetSwitchBase
 
 class RepeaterAutoSwitchSwitch(GLinetSwitchBase):
     _attr_icon = "mdi:wifi-sync"
+    _attr_translation_key = "repeater_auto_switch"
 
     @property
     def unique_id(self) -> str:
         return f"glinet_switch/{self._hub.device_mac}/repeater_auto_switch"
-
-    @property
-    def name(self) -> str:
-        return "Repeater auto-switch networks"
 
     @property
     def is_on(self) -> bool | None:

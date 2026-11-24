@@ -106,9 +106,9 @@ async def async_setup_entry(
         entities.append(AdGuardDnsEnabledSwitch(hub))
     if hub.feature_enabled(FEATURE_FIREWALL):
         entities.append(GLinetDMZSwitch(hub))
-        entities.append(GLinetWANAccessSwitch(hub, "ping", "WAN Ping", "mdi:access-point-network"))
-        entities.append(GLinetWANAccessSwitch(hub, "https", "WAN HTTPS Access", "mdi:web"))
-        entities.append(GLinetWANAccessSwitch(hub, "ssh", "WAN SSH Access", "mdi:console-network"))
+        entities.append(GLinetWANAccessSwitch(hub, "ping", "mdi:access-point-network"))
+        entities.append(GLinetWANAccessSwitch(hub, "https", "mdi:web"))
+        entities.append(GLinetWANAccessSwitch(hub, "ssh", "mdi:console-network"))
     if hub.feature_enabled(FEATURE_PARENTAL_CONTROL):
         entities.append(GLinetParentalControlGlobalSwitch(hub))
         entities.extend(

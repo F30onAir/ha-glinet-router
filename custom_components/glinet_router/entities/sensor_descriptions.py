@@ -100,7 +100,7 @@ def _build_cellular_traffic_descriptions(
     return (
         CellularTrafficSensorDescription(
             key="traffic_total",
-            name="Traffic total",
+            translation_key="traffic_total",
             has_entity_name=True,
             icon="mdi:counter",
             entity_category=EntityCategory.DIAGNOSTIC,
@@ -118,7 +118,7 @@ def _build_cellular_traffic_descriptions(
         ),
         CellularTrafficSensorDescription(
             key="days_until_reset",
-            name="Days until reset",
+            translation_key="days_until_reset",
             has_entity_name=True,
             icon="mdi:calendar-clock",
             entity_category=EntityCategory.DIAGNOSTIC,
@@ -136,7 +136,7 @@ def _build_cellular_traffic_descriptions(
         ),
         CellularTrafficSensorDescription(
             key="data_limit",
-            name="Data limit",
+            translation_key="data_limit",
             has_entity_name=True,
             icon="mdi:database-cog",
             entity_category=EntityCategory.DIAGNOSTIC,
@@ -189,7 +189,7 @@ class SystemStatusEntityDescription(SensorEntityDescription):
 SYSTEM_SENSORS: tuple[SystemStatusEntityDescription, ...] = (
     SystemStatusEntityDescription(
         key="cpu_temp",
-        name="CPU temperature",
+        translation_key="cpu_temp",
         has_entity_name=True,
         icon="mdi:thermometer",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -201,7 +201,7 @@ SYSTEM_SENSORS: tuple[SystemStatusEntityDescription, ...] = (
     ),
     SystemStatusEntityDescription(
         key="load_avg1",
-        name="Load avg (1m)",
+        translation_key="load_avg1",
         has_entity_name=True,
         icon="mdi:cpu-64-bit",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -211,7 +211,7 @@ SYSTEM_SENSORS: tuple[SystemStatusEntityDescription, ...] = (
     ),
     SystemStatusEntityDescription(
         key="load_avg5",
-        name="Load avg (5m)",
+        translation_key="load_avg5",
         has_entity_name=True,
         icon="mdi:cpu-64-bit",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -221,7 +221,7 @@ SYSTEM_SENSORS: tuple[SystemStatusEntityDescription, ...] = (
     ),
     SystemStatusEntityDescription(
         key="load_avg15",
-        name="Load avg (15m)",
+        translation_key="load_avg15",
         has_entity_name=True,
         icon="mdi:cpu-64-bit",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -231,7 +231,7 @@ SYSTEM_SENSORS: tuple[SystemStatusEntityDescription, ...] = (
     ),
     SystemStatusEntityDescription(
         key="memory_use",
-        name="Memory usage",
+        translation_key="memory_use",
         has_entity_name=True,
         icon="mdi:memory",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -246,7 +246,7 @@ SYSTEM_SENSORS: tuple[SystemStatusEntityDescription, ...] = (
     ),
     SystemStatusEntityDescription(
         key="flash_use",
-        name="Flash usage",
+        translation_key="flash_use",
         has_entity_name=True,
         icon="mdi:harddisk",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -271,7 +271,7 @@ class HubSensorEntityDescription(SensorEntityDescription):
 HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     HubSensorEntityDescription(
         key="connected_clients",
-        name="Connected clients",
+        translation_key="connected_clients",
         has_entity_name=True,
         icon="mdi:devices",
         state_class=SensorStateClass.MEASUREMENT,
@@ -279,7 +279,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="wan_download_rate",
-        name="WAN download rate",
+        translation_key="wan_download_rate",
         has_entity_name=True,
         icon="mdi:download-network",
         device_class=SensorDeviceClass.DATA_RATE,
@@ -289,7 +289,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="wan_upload_rate",
-        name="WAN upload rate",
+        translation_key="wan_upload_rate",
         has_entity_name=True,
         icon="mdi:upload-network",
         device_class=SensorDeviceClass.DATA_RATE,
@@ -299,7 +299,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="wan_download_total",
-        name="WAN total download",
+        translation_key="wan_download_total",
         has_entity_name=True,
         icon="mdi:download-network",
         device_class=SensorDeviceClass.DATA_SIZE,
@@ -309,7 +309,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="wan_upload_total",
-        name="WAN total upload",
+        translation_key="wan_upload_total",
         has_entity_name=True,
         icon="mdi:upload-network",
         device_class=SensorDeviceClass.DATA_SIZE,
@@ -319,21 +319,21 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_ipv4",
-        name="Cellular WAN IPv4",
+        translation_key="cellular_ipv4",
         has_entity_name=True,
         icon="mdi:ip-network",
         value_fn=lambda hub: _get_cellular_ip(hub, "ipv4"),
     ),
     HubSensorEntityDescription(
         key="cellular_ipv6",
-        name="Cellular WAN IPv6",
+        translation_key="cellular_ipv6",
         has_entity_name=True,
         icon="mdi:ip-network",
         value_fn=lambda hub: _get_cellular_ip(hub, "ipv6"),
     ),
     HubSensorEntityDescription(
         key="firewall_rules",
-        name="Firewall rules",
+        translation_key="firewall_rules",
         has_entity_name=True,
         icon="mdi:security",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -342,7 +342,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="port_forwards",
-        name="Port forwards",
+        translation_key="port_forwards",
         has_entity_name=True,
         icon="mdi:router-network",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -351,7 +351,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="battery_temperature",
-        name="Battery temperature",
+        translation_key="battery_temperature",
         has_entity_name=True,
         icon="mdi:thermometer",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -363,7 +363,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="battery_charge",
-        name="Battery charge",
+        translation_key="battery_charge",
         has_entity_name=True,
         icon="mdi:battery",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -379,7 +379,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="battery_charging_status",
-        name="Battery charging status",
+        translation_key="battery_charging_status",
         has_entity_name=True,
         icon="mdi:battery-charging",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -389,7 +389,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_apn",
-        name="Cellular APN",
+        translation_key="cellular_apn",
         has_entity_name=True,
         icon="mdi:access-point-network",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -401,7 +401,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_signal",
-        name="Cellular signal",
+        translation_key="cellular_signal",
         has_entity_name=True,
         icon="mdi:signal-cellular-2",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -415,7 +415,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_rssi",
-        name="Cellular RSSI",
+        translation_key="cellular_rssi",
         has_entity_name=True,
         icon="mdi:signal-cellular-outline",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -429,7 +429,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_network",
-        name="Cellular network",
+        translation_key="cellular_network",
         has_entity_name=True,
         icon="mdi:signal-cellular-outline",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -441,7 +441,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_rsrp",
-        name="Cellular RSRP",
+        translation_key="cellular_rsrp",
         has_entity_name=True,
         icon="mdi:signal-variant",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -455,7 +455,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_rsrq",
-        name="Cellular RSRQ",
+        translation_key="cellular_rsrq",
         has_entity_name=True,
         icon="mdi:signal-distance-variant",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -469,7 +469,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_sinr",
-        name="Cellular SINR",
+        translation_key="cellular_sinr",
         has_entity_name=True,
         icon="mdi:signal-3g",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -483,7 +483,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="cellular_band",
-        name="Cellular band",
+        translation_key="cellular_band",
         has_entity_name=True,
         icon="mdi:cellphone-wireless",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -495,7 +495,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="sms_messages",
-        name="Unread messages",
+        translation_key="sms_messages",
         has_entity_name=True,
         icon="mdi:email-alert",
         state_class=SensorStateClass.MEASUREMENT,
@@ -524,7 +524,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="repeater_state",
-        name="Repeater state",
+        translation_key="repeater_state",
         has_entity_name=True,
         icon="mdi:wifi-sync",
         device_class=SensorDeviceClass.ENUM,
@@ -541,7 +541,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="repeater_ssid",
-        name="Repeater SSID",
+        translation_key="repeater_ssid",
         has_entity_name=True,
         icon="mdi:wifi",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -549,7 +549,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="repeater_signal",
-        name="Repeater signal",
+        translation_key="repeater_signal",
         has_entity_name=True,
         icon="mdi:wifi-strength-2",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -559,7 +559,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="repeater_ip",
-        name="Repeater IP address",
+        translation_key="repeater_ip",
         has_entity_name=True,
         icon="mdi:ip-network",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -567,7 +567,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="repeater_gateway",
-        name="Repeater gateway",
+        translation_key="repeater_gateway",
         has_entity_name=True,
         icon="mdi:router-network",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -575,7 +575,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="repeater_dns",
-        name="Repeater DNS",
+        translation_key="repeater_dns",
         has_entity_name=True,
         icon="mdi:dns",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -592,7 +592,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="repeater_bssid",
-        name="Repeater BSSID",
+        translation_key="repeater_bssid",
         has_entity_name=True,
         icon="mdi:access-point-network",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -600,7 +600,6 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="fan_speed",
-        name="Fan speed",
         translation_key="fan_speed",
         has_entity_name=True,
         icon="mdi:fan",
@@ -615,7 +614,6 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="fan_temperature",
-        name="Fan threshold temperature",
         translation_key="fan_temperature",
         has_entity_name=True,
         icon="mdi:thermometer-auto",
@@ -627,7 +625,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="wg_server_users",
-        name="WireGuard server users",
+        translation_key="wg_server_users",
         has_entity_name=True,
         icon="mdi:account-group",
         state_class=SensorStateClass.MEASUREMENT,
@@ -635,7 +633,7 @@ HUB_SENSORS: tuple[HubSensorEntityDescription, ...] = (
     ),
     HubSensorEntityDescription(
         key="ovpn_server_users",
-        name="OpenVPN server users",
+        translation_key="ovpn_server_users",
         has_entity_name=True,
         icon="mdi:account-group",
         state_class=SensorStateClass.MEASUREMENT,
@@ -680,7 +678,7 @@ class ClientSensorEntityDescription(SensorEntityDescription):
 CLIENT_BANDWIDTH_SENSORS: tuple[ClientSensorEntityDescription, ...] = (
     ClientSensorEntityDescription(
         key="rx_rate",
-        name="Download rate",
+        translation_key="download_rate",
         icon="mdi:download-network",
         device_class=SensorDeviceClass.DATA_RATE,
         native_unit_of_measurement="B/s",
@@ -689,7 +687,7 @@ CLIENT_BANDWIDTH_SENSORS: tuple[ClientSensorEntityDescription, ...] = (
     ),
     ClientSensorEntityDescription(
         key="tx_rate",
-        name="Upload rate",
+        translation_key="upload_rate",
         icon="mdi:upload-network",
         device_class=SensorDeviceClass.DATA_RATE,
         native_unit_of_measurement="B/s",
@@ -698,7 +696,7 @@ CLIENT_BANDWIDTH_SENSORS: tuple[ClientSensorEntityDescription, ...] = (
     ),
     ClientSensorEntityDescription(
         key="total_rx",
-        name="Total download",
+        translation_key="total_download",
         icon="mdi:download-network",
         device_class=SensorDeviceClass.DATA_SIZE,
         native_unit_of_measurement="B",
@@ -707,7 +705,7 @@ CLIENT_BANDWIDTH_SENSORS: tuple[ClientSensorEntityDescription, ...] = (
     ),
     ClientSensorEntityDescription(
         key="total_tx",
-        name="Total upload",
+        translation_key="total_upload",
         icon="mdi:upload-network",
         device_class=SensorDeviceClass.DATA_SIZE,
         native_unit_of_measurement="B",
@@ -720,7 +718,7 @@ CLIENT_BANDWIDTH_SENSORS: tuple[ClientSensorEntityDescription, ...] = (
 CLIENT_DIAGNOSTIC_SENSORS: tuple[ClientSensorEntityDescription, ...] = (
     ClientSensorEntityDescription(
         key="ip_address",
-        name="IP address",
+        translation_key="ip_address",
         entity_category=EntityCategory.DIAGNOSTIC,
         value_fn=lambda device: device.ip_address,
     ),

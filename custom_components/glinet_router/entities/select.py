@@ -72,7 +72,7 @@ async def async_setup_entry(
 
 class WifiNetworkSelect(CoordinatorEntity[GLinetHub], SelectEntity):
     _attr_has_entity_name = True
-    _attr_name = "WiFi network"
+    _attr_translation_key = "wifi_network"
     _attr_icon = "mdi:wifi"
     _attr_current_option: str | None = None
 
@@ -185,7 +185,7 @@ class WifiNetworkSelect(CoordinatorEntity[GLinetHub], SelectEntity):
 
 class RepeaterBandSelect(CoordinatorEntity[GLinetHub], SelectEntity):
     _attr_has_entity_name = True
-    _attr_name = "Repeater band"
+    _attr_translation_key = "repeater_band"
     _attr_icon = "mdi:wifi-settings"
     _attr_options = BAND_OPTIONS
 
@@ -211,7 +211,7 @@ class RepeaterBandSelect(CoordinatorEntity[GLinetHub], SelectEntity):
 
 class GLinetClientParentalGroupSelect(CoordinatorEntity[GLinetHub], SelectEntity):
     _attr_has_entity_name = True
-    _attr_name = "Parental control group"
+    _attr_translation_key = "parental_control_group"
     _attr_icon = "mdi:account-child-circle"
 
     def __init__(self, hub: GLinetHub, device: ClientDeviceInfo) -> None:
